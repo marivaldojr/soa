@@ -15,11 +15,14 @@ public abstract class BaseDAO<Modelo> {
 	EntityManagerFactory emf;
 	EntityManager em;
 	EntityTransaction trs;
+	
 
-	protected BaseDAO() {
+
+	public BaseDAO() {
 		emf = Persistence.createEntityManagerFactory("soa");
 		em = emf.createEntityManager();
 		trs = em.getTransaction();
+	
 	}
 	
 	public void salvar(Modelo entidade) {
@@ -38,9 +41,9 @@ public abstract class BaseDAO<Modelo> {
 	
 	@SuppressWarnings("unchecked")
 	public Modelo buscarPorId(int id){
-		em.getTransaction().begin();
+		trs.begin();
 		Modelo resultado = (Modelo) em.find(tipo(), id);
-		em.getTransaction().commit();
+		trs.commit();
 		emf.close();
 		return resultado;
 	}
@@ -50,9 +53,8 @@ public abstract class BaseDAO<Modelo> {
 	public List<Modelo> listarTodos() {
 		em.getTransaction().begin();
 		Query consulta = em.createQuery("select entidade from " + tipo().getSimpleName()  + " entidade");
-		List<Modelo> lista= consulta.getResultList();
+		List<Modelo> lista = consulta.getResultList();
 		em.getTransaction().commit();
-		emf.close();
 		return lista;
 	
 	}

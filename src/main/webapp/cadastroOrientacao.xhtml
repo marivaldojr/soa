@@ -1,29 +1,72 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="/template.xhtml">
-		
-		<ui:define name="main-content">
-			<h1>Sistema de Orientação Acadêmica</h1>
-			
-			<div class="row">
-				<div class="col-sm-12">
-					<h:form>
-					
-						<div class="form-group">					
-							<p:inputTextarea id="comentario" styleClass="form-control" placeholder="Comentário" value="#{orientacaoBean.orientacao.comentarioAluno}"></p:inputTextarea>
-						</div>						
-							
-						<h:commandButton action="#{orientacaoBean.salvar()}" styleClass="btn btn-default" value="Salvar"></h:commandButton>
-					</h:form>
-				</div>
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="main-content">
+		<h1>Sistema de Orientação Acadêmica</h1>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<h:form id="disciplinaForm">
+					<h:panelGrid styleClass="form-control" columns="2" style="margin: 0 auto">
+
+						<h:outputLabel value="Nome:" />
+						<h:inputText value="#{orientacaoBean.criteria.nome}" />
+
+						<h:outputLabel value="Codigo:" />
+						<h:inputText value="#{orientacaoBean.criteria.codigo}" />
+
+					</h:panelGrid>
+
+					<h:panelGrid id="s" columns="1" style="margin: 0 auto">
+						<p:commandButton id="pesquisar"
+							update="orientacaoForm"
+							action="#{orientacaoBean.pesquisar()}" value="Pesquisar"
+							title="Pesquisar" style="margin: center" />
+					</h:panelGrid>
+				</h:form>
+				<h:form id="orientacaoForm">
+
+
+<p:panel id="resultPanelSearch" style="border:0" styleClass="form-control">
+					<p:dataTable id="tableDisciplinaPesquisa" rendered="#{orientacaoBean.listaDisciplinas ne null}"
+						value="#{orientacaoBean.listaDisciplinas}"
+						rowKey="#{disciplina.id}" var="disciplina" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">			
+				<p:column> 
+						<f:facet name="header"> Nome</f:facet>
+						<h:outputText value="#{disciplina.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header"> Codigo</f:facet>
+							<h:outputText value="#{disciplina.codigo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header"> Carga Horária</f:facet>
+							<h:outputText value="#{disciplina.cargaHoraria}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+					<div class="form-group">
+						<p:inputTextarea id="comentario" styleClass="form-control"
+							placeholder="Comentário"
+							value="#{orientacaoBean.orientacao.comentarioAluno}"></p:inputTextarea>
+					</div>
+
+					<h:commandButton action="#{orientacaoBean.salvar()}"
+						styleClass="btn btn-default" value="Salvar"></h:commandButton>
+				</h:form>
 			</div>
-		</ui:define>
-		
-	</ui:composition>
-	
+		</div>
+	</ui:define>
+
+</ui:composition>
+
 </html>

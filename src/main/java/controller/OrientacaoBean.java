@@ -1,34 +1,47 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import dao.OrientacaoDAO;
+import model.Disciplina;
 import model.Orientacao;
+import criteria.OrientacaoCriteria;
+import dao.DisciplinaDAO;
+import dao.OrientacaoDAO;
 
 @ManagedBean(name="orientacaoBean")
 @ViewScoped
 public class OrientacaoBean implements Serializable{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2486571501053533412L;
+private static final long serialVersionUID = -2486571501053533412L;
 
+	private OrientacaoCriteria criteria;
+	
 	private Orientacao orientacao;
 	
-	@Inject
+	private List<Disciplina> listaDisciplinas;
+	
+
 	private OrientacaoDAO orientacaoDAO;
 	
-	@PostConstruct 
+	private DisciplinaDAO disciplinaDAO;
+	
+	@PostConstruct
 	public void inicializar(){
 		System.out.println("Inicializei");
 		orientacao = new Orientacao();
 		orientacaoDAO = new OrientacaoDAO(); 
+		disciplinaDAO = new DisciplinaDAO();
+		criteria = new OrientacaoCriteria();
+	}
+	
+	public void pesquisar(){
+		listaDisciplinas =  disciplinaDAO.buscarPorCriterios(criteria);
 	}
 	
 	public void salvar() {
@@ -53,5 +66,21 @@ public class OrientacaoBean implements Serializable{
 
 	public void setOrientacao(Orientacao orientacao) {
 		this.orientacao = orientacao;
+	}
+
+	public OrientacaoCriteria getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(OrientacaoCriteria criteria) {
+		this.criteria = criteria;
+	}
+
+	public List<Disciplina> getListaDisciplinas() {
+		return listaDisciplinas;
+	}
+
+	public void setListaDisciplinas(List<Disciplina> listaDisciplinas) {
+		this.listaDisciplinas = listaDisciplinas;
 	}
 }
