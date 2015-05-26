@@ -2,6 +2,7 @@ package dao;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -20,7 +21,7 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 		return Disciplina.class;
 	}
 
-	public List<Disciplina> buscarPorCriterios(OrientacaoCriteria criteria) {
+	public ArrayList<Disciplina> buscarPorCriterios(OrientacaoCriteria criteria) {
 		trs.begin();
 		StringBuilder query = new StringBuilder();
 		query.append(" select disciplina ");
@@ -44,7 +45,7 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 		query.append(" order by disciplina.nome ");	
 
 		Query consulta = em.createQuery(query.toString());
-		List<Disciplina> disciplinas = consulta.getResultList();
+		ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) consulta.getResultList();
 		trs.commit();
 		emf.close();
 		return disciplinas;

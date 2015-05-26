@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import model.Disciplina;
 import model.Orientacao;
@@ -24,17 +27,52 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 	private Orientacao orientacao;
 	
+	private Disciplina disciplina;
+	
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
 	private List<Disciplina> listaDisciplinas;
 	
+	private List<Disciplina> listaSelecionada;
+	
+	private List<Disciplina> listaDisciplinasSelecionadas;
+	
+
+	
+	public List<Disciplina> getListaSelecionada() {
+		return listaSelecionada;
+	}
+
+	public void setListaSelecionada(List<Disciplina> listaSelecionada) {
+		this.listaSelecionada = listaSelecionada;
+	}
 
 	private OrientacaoDAO orientacaoDAO;
 	
 	private DisciplinaDAO disciplinaDAO;
 	
+	public void adicionarDisciplina(){
+		listaDisciplinas.remove(disciplina);
+		listaDisciplinasSelecionadas.add(disciplina);
+	}
+	
+	public void adicionarDisciplinaLista(){
+		listaDisciplinas.removeAll(listaSelecionada);
+		listaDisciplinasSelecionadas.addAll(listaSelecionada);
+	}
+	
 	@PostConstruct
 	public void inicializar(){
 		System.out.println("Inicializei");
 		orientacao = new Orientacao();
+		listaSelecionada = new ArrayList<Disciplina>();
+		disciplina = new Disciplina();
 		orientacaoDAO = new OrientacaoDAO(); 
 		disciplinaDAO = new DisciplinaDAO();
 		criteria = new OrientacaoCriteria();
@@ -83,4 +121,14 @@ private static final long serialVersionUID = -2486571501053533412L;
 	public void setListaDisciplinas(List<Disciplina> listaDisciplinas) {
 		this.listaDisciplinas = listaDisciplinas;
 	}
+	
+	public List<Disciplina> getListaDisciplinasSelecionadas() {
+		return listaDisciplinasSelecionadas;
+	}
+
+	public void setListaDisciplinasSelecionadas(
+			List<Disciplina> listaDisciplinasSelecionadas) {
+		this.listaDisciplinasSelecionadas = listaDisciplinasSelecionadas;
+	}
+
 }
