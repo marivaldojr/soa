@@ -57,22 +57,19 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 	private DisciplinaDAO disciplinaDAO;
 	
-	public void adicionarDisciplina(){
+	public void adicionarDisciplina(Disciplina disciplina){
 		listaDisciplinas.remove(disciplina);
 		listaDisciplinasSelecionadas.add(disciplina);
 	}
 	
-	public void adicionarDisciplinaLista(){
-		listaDisciplinas.removeAll(listaSelecionada);
-		listaDisciplinasSelecionadas.addAll(listaSelecionada);
-	}
+	
 	
 	@PostConstruct
 	public void inicializar(){
 		System.out.println("Inicializei");
 		orientacao = new Orientacao();
 		listaSelecionada = new ArrayList<Disciplina>();
-		disciplina = new Disciplina();
+		listaDisciplinasSelecionadas = new ArrayList<Disciplina>();
 		orientacaoDAO = new OrientacaoDAO(); 
 		disciplinaDAO = new DisciplinaDAO();
 		criteria = new OrientacaoCriteria();

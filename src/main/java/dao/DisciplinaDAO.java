@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import model.Disciplina;
@@ -22,6 +23,7 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 	}
 
 	public ArrayList<Disciplina> buscarPorCriterios(OrientacaoCriteria criteria) {
+		EntityTransaction trs = em.getTransaction();
 		trs.begin();
 		StringBuilder query = new StringBuilder();
 		query.append(" select disciplina ");
@@ -47,7 +49,6 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 		Query consulta = em.createQuery(query.toString());
 		ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) consulta.getResultList();
 		trs.commit();
-		emf.close();
 		return disciplinas;
 	}
 

@@ -14,47 +14,47 @@ public abstract class BaseDAO<Modelo> {
 	
 	EntityManagerFactory emf;
 	EntityManager em;
-	EntityTransaction trs;
 	
 
 
 	public BaseDAO() {
 		emf = Persistence.createEntityManagerFactory("soa");
 		em = emf.createEntityManager();
-		trs = em.getTransaction();
 	
 	}
 	
 	public void salvar(Modelo entidade) {
+
+		EntityTransaction trs = em.getTransaction();
 		trs.begin();
 		em.persist(entidade);
 		trs.commit();
-		emf.close();
 	}
 
 	public void remover(Modelo entidade) {
-		em.getTransaction().begin();
+		EntityTransaction trs = em.getTransaction();
+		trs.begin();
 		em.remove(entidade);
-		em.getTransaction().commit();
-		emf.close();
+		trs.commit();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public Modelo buscarPorId(int id){
+		EntityTransaction trs = em.getTransaction();
 		trs.begin();
 		Modelo resultado = (Modelo) em.find(tipo(), id);
 		trs.commit();
-		emf.close();
 		return resultado;
 	}
 
 	
 	@SuppressWarnings("unchecked")
 	public List<Modelo> listarTodos() {
-		em.getTransaction().begin();
+		EntityTransaction trs = em.getTransaction();
+		trs.begin();
 		Query consulta = em.createQuery("select entidade from " + tipo().getSimpleName()  + " entidade");
 		List<Modelo> lista = consulta.getResultList();
-		em.getTransaction().commit();
+		trs.commit();
 		return lista;
 	
 	}
