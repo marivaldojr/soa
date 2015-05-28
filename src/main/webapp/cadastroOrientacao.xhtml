@@ -76,7 +76,7 @@
 <div class="form-group">
 				
 					<p:dataTable id="tableDisciplinaLista"
-						rendered="#{orientacaoBean.listaDisciplinasSelecionadas ne null}"
+						rendered="#{orientacaoBean.renderedListaDisciplinasSelecionadas}"
 						value="#{orientacaoBean.listaDisciplinasSelecionadas}"
 						selection="#{orientacaoBean.listaSelecionada}"
 						rowKey="#{disciplina.id}" var="disciplina" >
@@ -97,23 +97,11 @@
 						</p:column>
 						<p:column style="width: 50px">
 							<p:commandButton type="button" icon="ui-icon-plusthick"
-								style=" width: 30px; height: 30px;">
-								<f:setPropertyActionListener
-									target="#{orientacaoBean.disciplina}" value="#{disciplina}">
-								</f:setPropertyActionListener>
-								<p:ajax event="click" update=""
-									listener="#{orientacaoBean.adicionarDisciplina()}" />
-							</p:commandButton>
+								style=" width: 30px; height: 30px;" action="#{orientacaoBean.removerDisciplina()}" />
+							
 
 						</p:column>
 
-						<f:facet name="footer">
-							<p:commandButton id="botaoRemover" type="button" icon="ui-icon-plusthick"
-								style=" width: 30px; height: 30px;">
-								<p:ajax event="click" update="orientacaoForm"
-									listener="#{orientacaoBean.adicionarDisciplinaLista()}" />
-							</p:commandButton>
-						</f:facet>
 
 					</p:dataTable>
 </div>
@@ -124,29 +112,7 @@
 						placeholder="Comentário"
 						value="#{orientacaoBean.orientacao.comentarioAluno}" />
 </div>
-					<p:panel id="resultPanelSelect" style="border:0">
 
-						<p:dataTable id="tableDisciplinaSelecionada"
-							rendered="#{orientacaoBean.listaDisciplinasSelecionadas ne null}"
-							value="#{orientacaoBean.listaDisciplinasSelecionadas}"
-							var="disciplina">
-
-							<p:column>
-								<f:facet name="header"> Nome</f:facet>
-								<h:outputText value="#{disciplina.nome}" />
-							</p:column>
-							<p:column>
-								<f:facet name="header"> Codigo</f:facet>
-								<h:outputText value="#{disciplina.codigo}" />
-							</p:column>
-							<p:column>
-								<f:facet name="header"> Carga Horária</f:facet>
-								<h:outputText value="#{disciplina.cargaHoraria}" />
-							</p:column>
-
-
-						</p:dataTable>
-					</p:panel>
 					<h:commandButton action="#{orientacaoBean.salvar()}"
 						styleClass="btn btn-default" value="Salvar"></h:commandButton>
 				</h:form>

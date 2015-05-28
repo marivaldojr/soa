@@ -24,7 +24,6 @@ public class teste {
 		Orientacao orientacao = new Orientacao();
 		
 		orientacao.setCargaHoraria(68);
-		orientacao.setSituacao("ACEITA");
 		orientacao.setComentarioAluno("Elvis pegou muitas materias. SEFODEU!!!");
 		Query consulta = manager.createQuery("select entidade from Disciplina entidade");
 		List<Disciplina> lista = consulta.getResultList();

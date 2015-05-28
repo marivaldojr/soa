@@ -1,4 +1,4 @@
-package controller;
+package bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,9 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-
-import com.mysql.fabric.xmlrpc.base.Array;
 
 import model.Disciplina;
 import model.Orientacao;
@@ -62,6 +59,10 @@ private static final long serialVersionUID = -2486571501053533412L;
 		listaDisciplinasSelecionadas.add(disciplina);
 	}
 	
+	public void removerDisciplina(Disciplina disciplina){
+		listaDisciplinas.add(disciplina);
+		listaDisciplinasSelecionadas.remove(disciplina);
+	}
 	
 	
 	@PostConstruct
@@ -77,19 +78,25 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 	public void pesquisar(){
 		listaDisciplinas =  disciplinaDAO.buscarPorCriterios(criteria);
+		listaDisciplinas.removeAll(listaDisciplinasSelecionadas);
 	}
 	
 	public void salvar() {
 		System.out.println("Salvando");
 		
 		orientacao.setCargaHoraria(100);
-		orientacao.setSituacao("ACEITA");		
+		orientacao.setSituacao(1);		
 		orientacaoDAO.salvar(orientacao);
 		
 		System.out.println("Salvei");
 		
 		resetForm();
 	}
+	
+	public boolean isRenderedListaDisciplinasSelecionadas(){
+		return !(listaDisciplinasSelecionadas==null ||listaDisciplinasSelecionadas.isEmpty());
+	}
+	
 
 	private void resetForm() {
 		orientacao.setComentarioAluno(null);

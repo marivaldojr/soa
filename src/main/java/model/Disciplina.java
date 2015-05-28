@@ -16,7 +16,7 @@ public class Disciplina implements Serializable{
 	private static final long serialVersionUID = 8030543786271236183L;
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_disciplina")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
