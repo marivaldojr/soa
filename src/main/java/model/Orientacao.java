@@ -45,7 +45,7 @@ public class Orientacao{
 	@Column(name = "comentario_aluno", nullable = false, length=255)
 	private String comentarioAluno;
 	
-	@Column(name = "comentario_orientador", nullable = false, length=255)
+	@Column(name = "comentario_orientador", nullable = true, length=255)
 	private String comentarioOrientador;
 
 	

@@ -40,79 +40,72 @@
 				</div>
 				<h:form id="orientacaoForm">
 
-<div class="form-group">
+					<div class="form-group">
+
+						<p:dataTable id="tableDisciplinaPesquisa"
+							rendered="#{orientacaoBean.listaDisciplinas ne null}"
+							value="#{orientacaoBean.listaDisciplinas}" var="disciplina"
+							rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+							<p:column>
+								<f:facet name="header"> Nome</f:facet>
+								<h:outputText value="#{disciplina.nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Codigo</f:facet>
+								<h:outputText value="#{disciplina.codigo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Carga Horária</f:facet>
+								<h:outputText value="#{disciplina.cargaHoraria}" />
+							</p:column>
+							<p:column style="width: 50px">
+								<p:commandButton icon="ui-icon-plusthick"
+									style=" width: 30px; height: 30px;" update="orientacaoForm"
+									action="#{orientacaoBean.adicionarDisciplina(disciplina)}" />
+
+
+
+							</p:column>
+
+
+						</p:dataTable>
+					</div>
+
+					<div class="form-group">
+
+						<p:dataTable id="tableDisciplinaLista"
+							rendered="#{orientacaoBean.renderedListaDisciplinasSelecionadas}"
+							value="#{orientacaoBean.listaDisciplinasSelecionadas}"
+							var="disciplina">
+
+							<p:column>
+								<f:facet name="header"> Nome</f:facet>
+								<h:outputText value="#{disciplina.nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Codigo</f:facet>
+								<h:outputText value="#{disciplina.codigo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Carga Horária</f:facet>
+								<h:outputText value="#{disciplina.cargaHoraria}" />
+							</p:column>
+							<p:column style="width: 50px">
+								<p:commandButton icon="ui-icon-plusthick"
+									update="orientacaoForm" style=" width: 30px; height: 30px;"
+									action="#{orientacaoBean.removerDisciplina(disciplina)}" />
+
+
+							</p:column>
+
+
+						</p:dataTable>
+					</div>
+
 				
-					<p:dataTable id="tableDisciplinaPesquisa"
-						rendered="#{orientacaoBean.listaDisciplinas ne null}"
-						value="#{orientacaoBean.listaDisciplinas}"
-						var="disciplina" rows="10"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-						<p:column>
-							<f:facet name="header"> Nome</f:facet>
-							<h:outputText value="#{disciplina.nome}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header"> Codigo</f:facet>
-							<h:outputText value="#{disciplina.codigo}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header"> Carga Horária</f:facet>
-							<h:outputText value="#{disciplina.cargaHoraria}" />
-						</p:column>
-						<p:column>
-							<p:commandButton icon="ui-icon-plusthick"
-								style=" width: 30px; height: 30px;" update="orientacaoForm" action="#{orientacaoBean.adicionarDisciplina(disciplina)}"/>
-								
-							
-
-						</p:column>
-
-						
-					</p:dataTable>
-</div>
-
-<div class="form-group">
 				
-					<p:dataTable id="tableDisciplinaLista"
-						rendered="#{orientacaoBean.renderedListaDisciplinasSelecionadas}"
-						value="#{orientacaoBean.listaDisciplinasSelecionadas}"
-						selection="#{orientacaoBean.listaSelecionada}"
-						rowKey="#{disciplina.id}" var="disciplina" >
-
-						<p:column selectionMode="multiple"
-							style="width:45px;text-align:center" />
-						<p:column>
-							<f:facet name="header"> Nome</f:facet>
-							<h:outputText value="#{disciplina.nome}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header"> Codigo</f:facet>
-							<h:outputText value="#{disciplina.codigo}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header"> Carga Horária</f:facet>
-							<h:outputText value="#{disciplina.cargaHoraria}" />
-						</p:column>
-						<p:column style="width: 50px">
-							<p:commandButton type="button" icon="ui-icon-plusthick"
-								style=" width: 30px; height: 30px;" action="#{orientacaoBean.removerDisciplina()}" />
-							
-
-						</p:column>
-
-
-					</p:dataTable>
-</div>
-
-<div class="form-group">
-				
-					<p:inputTextarea id="comentario" styleClass="form-control"
-						placeholder="Comentário"
-						value="#{orientacaoBean.orientacao.comentarioAluno}" />
-</div>
-
 					<h:commandButton action="#{orientacaoBean.salvar()}"
 						styleClass="btn btn-default" value="Salvar"></h:commandButton>
 				</h:form>

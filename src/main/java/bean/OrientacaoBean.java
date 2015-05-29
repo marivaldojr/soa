@@ -13,6 +13,7 @@ import model.Orientacao;
 import criteria.OrientacaoCriteria;
 import dao.DisciplinaDAO;
 import dao.OrientacaoDAO;
+import dao.UsuarioDAO;
 
 @ManagedBean(name="orientacaoBean")
 @ViewScoped
@@ -26,19 +27,15 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 	private Disciplina disciplina;
 	
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
-
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
+	
 
 	private List<Disciplina> listaDisciplinas;
 	
 	private List<Disciplina> listaSelecionada;
 	
 	private List<Disciplina> listaDisciplinasSelecionadas;
+	
+	private UsuarioDAO usuarioDAO;
 	
 
 	
@@ -83,14 +80,18 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 	public void salvar() {
 		System.out.println("Salvando");
-		
-		orientacao.setCargaHoraria(100);
+		usuarioDAO = new UsuarioDAO();
+		orientacao.setCargaHoraria(300);
 		orientacao.setSituacao(1);		
+		orientacao.setAnoSemestre("20152");
+		orientacao.setComentarioAluno("sdsffsfssfd");
+		orientacao.setAluno(usuarioDAO.buscarPorId(1));
+		orientacao.setOrientador(usuarioDAO.buscarPorId(5));
+		orientacao.setDisciplinas(listaDisciplinasSelecionadas);
 		orientacaoDAO.salvar(orientacao);
 		
 		System.out.println("Salvei");
 		
-		resetForm();
 	}
 	
 	public boolean isRenderedListaDisciplinasSelecionadas(){
@@ -135,4 +136,11 @@ private static final long serialVersionUID = -2486571501053533412L;
 		this.listaDisciplinasSelecionadas = listaDisciplinasSelecionadas;
 	}
 
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
 }

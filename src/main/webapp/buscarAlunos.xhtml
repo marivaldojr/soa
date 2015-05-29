@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="main-content">
+		<h1>Sistema de Orientação Acadêmica</h1>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<h:form id="disciplinaForm">
+						<h:panelGrid style="margin: 0 auto; text-align:center;">
+							<p:outputLabel value="Buscar Alunos" />
+
+
+							<h:panelGrid columns="1" style="margin: 0 auto">
+								<p:inputText placeholder="Nome"
+									value="#{alunoBean.criteria.nome}"
+									styleClass="form-control" />
+
+
+								<p:inputText placeholder="Matrícula"
+									value="#{alunoBean.criteria.matricula}"
+									styleClass="form-control"
+									style="margin-top: 20px; margin-bottom: 20px;" />
+
+
+							</h:panelGrid>
+							<h:commandButton action="#{alunoBean.pesquisar()}"
+								update="alunoForm" styleClass="btn btn-default"
+								value="Pesquisar" />
+						</h:panelGrid>
+					</h:form>
+
+				</div>
+				<h:form id="alunoForm">
+
+<div class="form-group">
+				
+					<p:dataTable id="tableAlunoPesquisa"
+						rendered="#{alunoBean.listaUsuario ne null}"
+						value="#{alunoBean.listaUsuario}"
+						var="aluno" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+						<p:column>
+							<f:facet name="header"> Nome</f:facet>
+							<h:outputText value="#{aluno.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header"> Matrícula</f:facet>
+							<h:outputText value="#{aluno.matricula}" />
+						</p:column>
+<!-- 						<p:column> -->
+<!-- 							<f:facet name="header"> Carga Horária</f:facet> -->
+<!-- 							<h:outputText value="#{aluno.orientacoes(1).cargaHoraria}" /> -->
+<!-- 						</p:column> -->
+<!-- 						<p:column> -->
+<!-- 							<f:facet name="header"> Situação</f:facet> -->
+<!-- 							<h:outputText value="#{aluno.orientacao.situacao}" /> -->
+<!-- 						</p:column> -->
+						<p:column style="width:50px">
+							<p:commandButton icon="ui-icon-plus"
+								style=" width: 30px; height: 30px;" />
+								
+							
+
+						</p:column>
+
+						
+					</p:dataTable>
+</div>
+
+
+					<h:commandButton action="#{orientacaoBean.salvar()}"
+						styleClass="btn btn-default" value="Salvar"></h:commandButton>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

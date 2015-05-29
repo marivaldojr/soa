@@ -2,12 +2,17 @@ package model;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +32,9 @@ public class Usuario implements Serializable{
 	
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
+	
+	@Column(name = "matricula", nullable = false)
+	private String matricula;
 		
 	@Column(name = "senha", nullable = false)
 	private String senha;
@@ -37,6 +45,10 @@ public class Usuario implements Serializable{
 	
 	@Column(name = "tipo", nullable = false)
 	private int tipoUsuario;
+	
+	@OneToMany(fetch=FetchType.LAZY) 
+	@JoinTable(name="usuario_orientacao", joinColumns={@JoinColumn(name = "id_orientador", nullable = false, referencedColumnName = "id_orientacao")}, inverseJoinColumns={@JoinColumn(name="id_orientacao", referencedColumnName="id_orientacao")})
+    private List<Orientacao> orientacoes;
 	
 
 	public int getId() {
@@ -77,6 +89,30 @@ public class Usuario implements Serializable{
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public List<Orientacao> getOrientacoes() {
+		return orientacoes;
+	}
+
+	public void setOrientacoes(List<Orientacao> orientacoes) {
+		this.orientacoes = orientacoes;
 	}
 
 

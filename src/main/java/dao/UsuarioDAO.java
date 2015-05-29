@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import criteria.UsuarioCriteria;
@@ -37,16 +38,17 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	
 	public List<Usuario> buscarPorCriterios(UsuarioCriteria criteria) {
 		boolean statusCrietria=false;
-		em.getTransaction().begin();
+		EntityTransaction trs = em.getTransaction();
+		trs.begin();
 		StringBuilder query = new StringBuilder();
 		query.append(" select usuario ");
 		query.append(" from Usuario usuario ");
 		if (criteria.getEmail() != null || criteria.getLogin() != null || criteria.getMatricula() != null || criteria.getNome() != null) {
 			query.append(" where ");
-		} 
+		 
 			if (criteria.getEmail() != null) {
 				statusCrietria = true;
-				query.append(" usuario.email = " + criteria.getEmail());	
+				query.append(" usuario.email like '%" + criteria.getEmail()  + "%' ");	
 			}
 			
 			if (criteria.getLogin() != null) {
@@ -55,7 +57,7 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 				}else{
 					statusCrietria = true;
 				}
-				query.append(" usuario.login = " + criteria.getLogin());
+				query.append(" usuario.login like '%" + criteria.getLogin() + "%' ");
 			
 		}
 			
@@ -65,7 +67,7 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 				}else{
 					statusCrietria = true;
 				}
-				query.append(" usuario.matricula = " + criteria.getMatricula());
+				query.append(" usuario.matricula like '%" + criteria.getMatricula() + "%' ");
 			
 		}
 			
@@ -75,16 +77,15 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 				}else{
 					statusCrietria = true;
 				}
-				query.append(" usuario.nome = " + criteria.getNome());
-			
+				query.append(" usuario.nome like '%" + criteria.getNome() + "%' ");
+			}	
 		}
-		query.append(" order by disciplina.nome ");	
+		query.append(" order by usuario.nome ");	
 
 		Query consulta = em.createQuery(query.toString());
-		List<Disciplina> disciplinas = consulta.getResultList();
-		em.getTransaction().commit();
-		emf.close();
-		return null;
+		List<Usuario> usuarios = consulta.getResultList();
+		trs.commit();
+		return usuarios;
 	}
 
 }
