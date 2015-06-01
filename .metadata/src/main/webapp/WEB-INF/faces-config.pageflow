@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14327313449910" configfile="/soa/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14327313449910" configfile="/soa/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="cadastroOrientacao.xhtml" id="pf14330145421128" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14330934497332" path="/cadastroOrientacao.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="confirmarOrientacao.xhtml" id="pf14330934497343" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14330943656426" inlinks="pf14330934497332" path="/confirmarOrientacao.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="orientacaoConfirmada.xhtml" id="pf14330943656427" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14330943656426" path="/orientacaoConfirmada.xhtml"/>
+  <links id="pf14330934497332" target="pf14330934497343" source="pf14330145421128" outcome="confirmarOrientacao" redirect="true"/>
+  <links id="pf14330943656426" target="pf14330943656427" source="pf14330934497343" outcome="orientacaoConfirmada" redirect="true"/>
+</pageflow:Pageflow>

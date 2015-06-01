@@ -49,8 +49,10 @@ public class Orientacao{
 	private String comentarioOrientador;
 
 	
-	@Column(name = "ano_semestre", nullable = false, length=5)
-	private String anoSemestre;
+	@ManyToOne(fetch=FetchType.LAZY) 	
+	@JoinColumn(name = "id_ano_semestre", nullable = false,  referencedColumnName = "id_ano_semestre")  
+	@ForeignKey(name="fk_ano_semestre_id")
+	private AnoSemestre anoSemestre;
 
 	@Column(name = "carga_horaria", nullable = false)
 	private int cargaHoraria;
@@ -62,7 +64,7 @@ public class Orientacao{
 	private SituacaoEnum situacaoTipo;
 
 	
-	@ManyToMany    
+	@ManyToMany(fetch=FetchType.EAGER)     
 	@JoinTable(name = "orientacao_disciplina", joinColumns = { 
 			@JoinColumn(name = "id_orientacao", nullable = false)
 			}, 
@@ -144,13 +146,14 @@ public class Orientacao{
 		this.situacaoTipo = situacaoTipo;
 	}
 
-	public String getAnoSemestre() {
+	public AnoSemestre getAnoSemestre() {
 		return anoSemestre;
 	}
 
-	public void setAnoSemestre(String anoSemestre) {
+	public void setAnoSemestre(AnoSemestre anoSemestre) {
 		this.anoSemestre = anoSemestre;
 	}
-	
+
+
 	
 }

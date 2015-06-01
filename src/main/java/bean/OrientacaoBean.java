@@ -1,6 +1,5 @@
 package bean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,46 +9,28 @@ import javax.faces.bean.ViewScoped;
 
 import model.Disciplina;
 import model.Orientacao;
+import service.DisciplinaService;
+import service.OrientacaoService;
+import service.UsuarioService;
 import criteria.OrientacaoCriteria;
-import dao.DisciplinaDAO;
-import dao.OrientacaoDAO;
-import dao.UsuarioDAO;
 
 @ManagedBean(name="orientacaoBean")
 @ViewScoped
-public class OrientacaoBean implements Serializable{
+public class OrientacaoBean extends BaseBean{
 	
 private static final long serialVersionUID = -2486571501053533412L;
 
 	private OrientacaoCriteria criteria;
-	
-	private Orientacao orientacao;
-	
-	private Disciplina disciplina;
-	
-	
-
+			
 	private List<Disciplina> listaDisciplinas;
 	
-	private List<Disciplina> listaSelecionada;
-	
 	private List<Disciplina> listaDisciplinasSelecionadas;
-	
-	private UsuarioDAO usuarioDAO;
-	
 
-	
-	public List<Disciplina> getListaSelecionada() {
-		return listaSelecionada;
-	}
+	private DisciplinaService disciplinaService;
 
-	public void setListaSelecionada(List<Disciplina> listaSelecionada) {
-		this.listaSelecionada = listaSelecionada;
-	}
-
-	private OrientacaoDAO orientacaoDAO;
+	private UsuarioService usuarioService;
 	
-	private DisciplinaDAO disciplinaDAO;
+	private OrientacaoService orientacaoService;
 	
 	public void adicionarDisciplina(Disciplina disciplina){
 		listaDisciplinas.remove(disciplina);
@@ -65,33 +46,25 @@ private static final long serialVersionUID = -2486571501053533412L;
 	@PostConstruct
 	public void inicializar(){
 		System.out.println("Inicializei");
-		orientacao = new Orientacao();
-		listaSelecionada = new ArrayList<Disciplina>();
 		listaDisciplinasSelecionadas = new ArrayList<Disciplina>();
-		orientacaoDAO = new OrientacaoDAO(); 
-		disciplinaDAO = new DisciplinaDAO();
+		disciplinaService= new DisciplinaService();
+		usuarioService = new UsuarioService();
+		orientacaoService = new OrientacaoService();
 		criteria = new OrientacaoCriteria();
 	}
 	
 	public void pesquisar(){
-		listaDisciplinas =  disciplinaDAO.buscarPorCriterios(criteria);
+		listaDisciplinas =  disciplinaService.buscarPorCriterios(criteria);
 		listaDisciplinas.removeAll(listaDisciplinasSelecionadas);
 	}
 	
-	public void salvar() {
-		System.out.println("Salvando");
-		usuarioDAO = new UsuarioDAO();
-		orientacao.setCargaHoraria(300);
-		orientacao.setSituacao(1);		
-		orientacao.setAnoSemestre("20152");
-		orientacao.setComentarioAluno("sdsffsfssfd");
-		orientacao.setAluno(usuarioDAO.buscarPorId(1));
-		orientacao.setOrientador(usuarioDAO.buscarPorId(5));
-		orientacao.setDisciplinas(listaDisciplinasSelecionadas);
-		orientacaoDAO.salvar(orientacao);
-		
-		System.out.println("Salvei");
-		
+	public String avancar() {
+		if(listaDisciplinasSelecionadas.isEmpty() || listaDisciplinasSelecionadas == null){
+			addMensagemAviso("Selecione ao menos uma disciplina");
+			return null;
+		}else{ 
+			return "confirmarOrientacao";
+		}
 	}
 	
 	public boolean isRenderedListaDisciplinasSelecionadas(){
@@ -99,18 +72,14 @@ private static final long serialVersionUID = -2486571501053533412L;
 	}
 	
 
-	private void resetForm() {
-		orientacao.setComentarioAluno(null);
+	public boolean isRenderedOrientacao(){
+		return orientacaoService.buscarOrientacaoPorAluno(usuarioService.buscarPorId(1))==null;
 	}
 
-	public Orientacao getOrientacao() {
-		return orientacao;
-	}
-
-	public void setOrientacao(Orientacao orientacao) {
-		this.orientacao = orientacao;
-	}
-
+	// Getters e Setters ---------------------------------------
+	
+	
+	
 	public OrientacaoCriteria getCriteria() {
 		return criteria;
 	}
@@ -134,13 +103,5 @@ private static final long serialVersionUID = -2486571501053533412L;
 	public void setListaDisciplinasSelecionadas(
 			List<Disciplina> listaDisciplinasSelecionadas) {
 		this.listaDisciplinasSelecionadas = listaDisciplinasSelecionadas;
-	}
-
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
-
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
 	}
 }

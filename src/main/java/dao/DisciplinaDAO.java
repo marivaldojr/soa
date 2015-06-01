@@ -23,6 +23,7 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 	}
 
 	public ArrayList<Disciplina> buscarPorCriterios(OrientacaoCriteria criteria) {
+		em = emf.createEntityManager();
 		EntityTransaction trs = em.getTransaction();
 		trs.begin();
 		StringBuilder query = new StringBuilder();
@@ -49,6 +50,7 @@ public class DisciplinaDAO extends BaseDAO<Disciplina> implements Serializable{
 		Query consulta = em.createQuery(query.toString());
 		ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) consulta.getResultList();
 		trs.commit();
+		em.close();
 		return disciplinas;
 	}
 

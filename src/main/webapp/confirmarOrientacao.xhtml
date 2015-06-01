@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="main-content">
+		<h1>Sistema de Orientação Acadêmica</h1>
+<p:panel rendered="#{confirmarOrientacaoBean.renderedOrientacao and confirmarOrientacaoBean.existeDisciplinaSelecionada}">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<h:form id="confirmarOrientacaoForm">
+
+					<div class="form-group">
+
+						<p:dataTable id="tableDisciplinaPesquisa"
+							value="#{confirmarOrientacaoBean.listaDisciplinas}"
+							var="disciplina">
+							<p:column>
+								<f:facet name="header"> Nome</f:facet>
+								<h:outputText value="#{disciplina.nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Codigo</f:facet>
+								<h:outputText value="#{disciplina.codigo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Carga Horária</f:facet>
+								<h:outputText value="#{disciplina.cargaHoraria}" />
+							</p:column>
+
+						</p:dataTable>
+
+
+					</div>
+					<div>
+
+						<p:outputLabel
+								value="Carga Horária Total: #{confirmarOrientacaoBean.orientacao.cargaHoraria}" />
+
+						<p:inputTextarea id="comentarioAluno" styleClass="form-control"
+							value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}"
+							placeholder="Observações" />
+
+						<!-- 							<p:inputTextarea id="comentarioOrientador" styleClass="form-control" -->
+						<!-- 							value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}" -->
+						<!-- 							placeholder="Observações" /> -->
+
+					</div>
+					<h:commandButton action="#{confirmarOrientacaoBean.salvar()}"
+						styleClass="btn btn-default" value="Salvar" />
+				</h:form>
+			</div>
+		</div>
+		</p:panel>
+		
+		<p:outputLabel rendered="#{!confirmarOrientacaoBean.renderedOrientacao}" value="Você já cadastrou sua orientação"/>
+			<p:outputLabel rendered="#{!confirmarOrientacaoBean.existeDisciplinaSelecionada and confirmarOrientacaoBean.renderedOrientacao}" value="Nenhuma disciplina Selecionada"/>
+		
+	</ui:define>
+
+</ui:composition>
+
+</html>

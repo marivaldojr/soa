@@ -12,8 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name ="usuario")
@@ -30,10 +33,15 @@ public class Usuario implements Serializable{
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@ManyToOne(fetch=FetchType.LAZY) 	
+	@JoinColumn(name = "id_orientador", nullable = true, referencedColumnName = "id_usuario")  
+	@ForeignKey(name="fk_orientador_id")
+	private Usuario orientador;
+	
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
 	
-	@Column(name = "matricula", nullable = false)
+	@Column(name = "matricula", nullable = true)
 	private String matricula;
 		
 	@Column(name = "senha", nullable = false)
@@ -44,12 +52,7 @@ public class Usuario implements Serializable{
 	private String login;
 	
 	@Column(name = "tipo", nullable = false)
-	private int tipoUsuario;
-	
-	@OneToMany(fetch=FetchType.LAZY) 
-	@JoinTable(name="usuario_orientacao", joinColumns={@JoinColumn(name = "id_orientador", nullable = false, referencedColumnName = "id_orientacao")}, inverseJoinColumns={@JoinColumn(name="id_orientacao", referencedColumnName="id_orientacao")})
-    private List<Orientacao> orientacoes;
-	
+	private int tipoUsuario;	
 
 	public int getId() {
 		return id;
@@ -107,14 +110,13 @@ public class Usuario implements Serializable{
 		this.matricula = matricula;
 	}
 
-	public List<Orientacao> getOrientacoes() {
-		return orientacoes;
+	public Usuario getOrientador() {
+		return orientador;
 	}
 
-	public void setOrientacoes(List<Orientacao> orientacoes) {
-		this.orientacoes = orientacoes;
+	public void setOrientador(Usuario orientador) {
+		this.orientador = orientador;
 	}
-
 
 	
 	

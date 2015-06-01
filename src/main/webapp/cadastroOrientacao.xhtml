@@ -10,6 +10,7 @@
 	<ui:define name="main-content">
 		<h1>Sistema de Orientação Acadêmica</h1>
 
+<p:panel id="panelOrientacao" rendered="#{orientacaoBean.renderedOrientacao}">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
@@ -31,8 +32,8 @@
 
 
 							</h:panelGrid>
-							<h:commandButton action="#{orientacaoBean.pesquisar()}"
-								update="orientacaoForm" styleClass="btn btn-default"
+							<h:commandButton action="#{orientacaoBean.pesquisar()}" 
+								update="orientacaoForm" styleClass="btn btn-lg btn-primary"
 								value="Pesquisar" />
 						</h:panelGrid>
 					</h:form>
@@ -40,12 +41,12 @@
 				</div>
 				<h:form id="orientacaoForm">
 
-					<div class="form-group">
+					<div class="table table-striped">
 
-						<p:dataTable id="tableDisciplinaPesquisa"
+						<p:dataTable id="tableDisciplinaPesquisa" 
 							rendered="#{orientacaoBean.listaDisciplinas ne null}"
 							value="#{orientacaoBean.listaDisciplinas}" var="disciplina"
-							rows="10" paginator="true"
+							rows="7" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 							<p:column>
@@ -106,11 +107,15 @@
 
 				
 				
-					<h:commandButton action="#{orientacaoBean.salvar()}"
-						styleClass="btn btn-default" value="Salvar"></h:commandButton>
+					<h:commandButton action="#{orientacaoBean.avancar()}" update="panelOrientacao"
+						styleClass="btn btn-lg btn-primary" value="Salvar">
+						</h:commandButton>
 				</h:form>
 			</div>
 		</div>
+		</p:panel>
+		
+		<p:outputLabel rendered="#{!orientacaoBean.renderedOrientacao}" value="Você já cadastrou sua orientação"/>
 	</ui:define>
 
 </ui:composition>
