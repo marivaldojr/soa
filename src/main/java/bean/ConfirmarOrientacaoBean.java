@@ -78,7 +78,6 @@ public class ConfirmarOrientacaoBean extends BaseBean {
 			orientacao.setAnoSemestre(anoSemestreDao.buscarAnoSemestre());
 			orientacao.setDisciplinas(listaDisciplinas);
 			orientacaoService.salvar(orientacao);
-			
 			System.out.println("Salvei");
 			return "orientacaoConfirmada";
 		}
