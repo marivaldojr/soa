@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import model.Orientacao;
+import model.Usuario;
 import service.OrientacaoService;
 import dao.UsuarioDAO;
 
@@ -20,19 +21,29 @@ public class VisualizarOrientacaoBean extends BaseBean {
 
 	private OrientacaoService orientacaoService;
 
+	private Usuario usuario;
+
 	@PostConstruct
 	public void inicializar() {
 		System.out.println("Inicializei");
-		usuarioDAO = new UsuarioDAO();		
+		usuarioDAO = new UsuarioDAO();
 		orientacaoService = new OrientacaoService();
-		orientacao = orientacaoService.buscarOrientacaoPorAluno(usuarioDAO.buscarPorId(1));
-		
+	
+		if (orientacao == null ||orientacao.getAluno() == null) {
+			orientacao = orientacaoService.buscarOrientacaoPorAluno(usuarioDAO
+					.buscarPorId(1));
 
+		}
+	
 	}
 
-	
 	public boolean isRenderedOrientacao() {
-		return orientacaoService.buscarOrientacaoPorAluno(usuarioDAO.buscarPorId(1))!=null;
+		return orientacaoService.buscarOrientacaoPorAluno(usuarioDAO
+				.buscarPorId(1)) != null;
+	}
+
+	public boolean isOrientador() {
+		return usuario.getId() == 2;
 	}
 
 	public Orientacao getOrientacao() {

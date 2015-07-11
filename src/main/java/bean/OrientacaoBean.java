@@ -73,7 +73,7 @@ private static final long serialVersionUID = -2486571501053533412L;
 	
 
 	public boolean isRenderedOrientacao(){
-		return orientacaoService.buscarOrientacaoPorAluno(usuarioService.buscarPorId(1))==null;
+		return orientacaoService.buscarOrientacaoPorAluno(usuarioService.buscarPorId(2))==null;
 	}
 
 	// Getters e Setters ---------------------------------------

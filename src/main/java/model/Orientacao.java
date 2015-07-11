@@ -138,12 +138,13 @@ public class Orientacao{
 		this.situacao = situacao;
 	}
 
-	public SituacaoEnum getSituacaoTipo() {
-		return situacaoTipo;
+	public String getSituacaoTipo() {
+		SituacaoEnum situacaoAux = SituacaoEnum.getSituacaoEnum(situacao);
+		return situacaoAux.getNome();
 	}
 
-	public void setSituacaoTipo(SituacaoEnum situacaoTipo) {
-		this.situacaoTipo = situacaoTipo;
+	public void setSituacaoTipo() {
+		this.situacaoTipo = SituacaoEnum.getSituacaoEnum(situacao);
 	}
 
 	public AnoSemestre getAnoSemestre() {

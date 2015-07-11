@@ -38,48 +38,37 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	
 	public List<Usuario> buscarPorCriterios(UsuarioCriteria criteria) {
 		boolean statusCrietria=false;
+		em = emf.createEntityManager();
 		EntityTransaction trs = em.getTransaction();
 		trs.begin();
 		StringBuilder query = new StringBuilder();
 		query.append(" select usuario ");
 		query.append(" from Usuario usuario ");
-		if (criteria.getEmail() != null || criteria.getLogin() != null || criteria.getMatricula() != null || criteria.getNome() != null) {
-			query.append(" where ");
-		 
-			if (criteria.getEmail() != null) {
+		query.append(" inner join usuario.orientador orientador");		
+		query.append(" where ");		
+		
+		if (!criteria.getMatricula().isEmpty() || !criteria.getNome().isEmpty()) {
+			if (!criteria.getMatricula().isEmpty()) {
 				statusCrietria = true;
-				query.append(" usuario.email like '%" + criteria.getEmail()  + "%' ");	
+				query.append(" usuario.matricula like '%" + criteria.getMatricula() + "%' ");
+		}
+			
+			if (!criteria.getNome().isEmpty()) {
+				if(statusCrietria){
+					query.append(" and ");
+				}else{
+					statusCrietria = true;
+				}
+				query.append(" usuario.nome = "+ criteria.getNome());
+				
 			}
 			
-			if (criteria.getLogin() != null) {
-				if(statusCrietria){
-					query.append(" and ");
-				}else{
-					statusCrietria = true;
-				}
-				query.append(" usuario.login like '%" + criteria.getLogin() + "%' ");
 			
 		}
-			
-			if (criteria.getMatricula() != null) {
-				if(statusCrietria){
-					query.append(" and ");
-				}else{
-					statusCrietria = true;
-				}
-				query.append(" usuario.matricula like '%" + criteria.getMatricula() + "%' ");
-			
+		if(statusCrietria){
+			query.append(" and ");
 		}
-			
-			if (criteria.getNome() != null) {
-				if(statusCrietria){
-					query.append(" and ");
-				}else{
-					statusCrietria = true;
-				}
-				query.append(" usuario.nome like '%" + criteria.getNome() + "%' ");
-			}	
-		}
+		query.append(" orientador.id = "+criteria.getOrientador());
 		query.append(" order by usuario.nome ");	
 
 		Query consulta = em.createQuery(query.toString());

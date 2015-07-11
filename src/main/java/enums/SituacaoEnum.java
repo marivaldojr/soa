@@ -2,10 +2,10 @@ package enums;
 
 
 public enum SituacaoEnum {
-
-	PENDENTE("Pendente", 1),
-	SOLICITADA("Solicitada", 2),
-	RECUSADA("Recusada", 3),
+	
+	SOLICITADA("Solicitada", 1),
+	RECUSADA("Recusada", 2),
+	PENDENTE("Pendente", 3),
 	ACEITA("Aceita",4);
 	
 	private final String nome;

@@ -24,10 +24,10 @@ public class AnoSemestre implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "ano",  nullable = false)
+	@Column(name = "ano")
 	private int ano;
 	
-	@Column(name = "semestre", nullable = false)
+	@Column(name = "semestre")
 	private int semestre;
 
 	public int getId() {

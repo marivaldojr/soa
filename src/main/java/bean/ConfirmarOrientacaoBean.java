@@ -72,8 +72,8 @@ public class ConfirmarOrientacaoBean extends BaseBean {
 			return null;
 		} else {
 			System.out.println("Salvando");
-			orientacao.setSituacao(0);
-			orientacao.setAluno(usuarioDAO.buscarPorId(1));
+			orientacao.setSituacao(1);
+			orientacao.setAluno(usuarioDAO.buscarPorId(2));
 			orientacao.setOrientador(orientacao.getAluno().getOrientador());
 			orientacao.setAnoSemestre(anoSemestreDao.buscarAnoSemestre());
 			orientacao.setDisciplinas(listaDisciplinas);
@@ -85,7 +85,7 @@ public class ConfirmarOrientacaoBean extends BaseBean {
 	
 	
 	public boolean isRenderedOrientacao() {
-		return orientacaoService.buscarOrientacaoPorAluno(usuarioDAO.buscarPorId(1))==null;
+		return orientacaoService.buscarOrientacaoPorAluno(usuarioDAO.buscarPorId(2))==null;
 	}
 	
 

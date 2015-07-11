@@ -10,26 +10,16 @@ public class UsuarioCriteria implements Serializable {
 
 	private String nome;
 	
-	private String email;
-
 	private String matricula;
 	
-	private String login;
-
+	private Integer orientador;
+	
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getMatricula() {
@@ -40,13 +30,12 @@ public class UsuarioCriteria implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public String getLogin() {
-		return login;
+	public Integer getOrientador() {
+		return orientador;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setOrientador(Integer orientador) {
+		this.orientador = orientador;
 	}
-
 
 }

@@ -6,63 +6,41 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template.xhtml">
-
 	<ui:define name="main-content">
-		<h1>Sistema de Orientação Acadêmica</h1>
-<p:panel rendered="#{confirmarOrientacaoBean.renderedOrientacao and confirmarOrientacaoBean.existeDisciplinaSelecionada}">
-		<div class="row">
-			<div class="col-sm-12">
-
-				<h:form id="confirmarOrientacaoForm">
-
-					<div class="form-group">
-
-						<p:dataTable id="tableDisciplinaPesquisa"
-							value="#{confirmarOrientacaoBean.listaDisciplinas}"
-							var="disciplina">
-							<p:column>
-								<f:facet name="header"> Nome</f:facet>
-								<h:outputText value="#{disciplina.nome}" />
-							</p:column>
-							<p:column>
-								<f:facet name="header"> Codigo</f:facet>
-								<h:outputText value="#{disciplina.codigo}" />
-							</p:column>
-							<p:column>
-								<f:facet name="header"> Carga Horária</f:facet>
-								<h:outputText value="#{disciplina.cargaHoraria}" />
-							</p:column>
-
-						</p:dataTable>
-
-
-					</div>
-					<div>
-
-						<p:outputLabel
-								value="Carga Horária Total: #{confirmarOrientacaoBean.orientacao.cargaHoraria}" />
-
-						<p:inputTextarea id="comentarioAluno" styleClass="form-control"
-							value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}"
-							placeholder="Observações" />
-
-						<!-- 							<p:inputTextarea id="comentarioOrientador" styleClass="form-control" -->
-						<!-- 							value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}" -->
-						<!-- 							placeholder="Observações" /> -->
-
-					</div>
-					<h:commandButton action="#{confirmarOrientacaoBean.salvar()}"
-						styleClass="btn btn-default" value="Salvar" />
-				</h:form>
+		<div class="content">
+			<div class="container">
+				<div class="main_user">
+					<h1 class="fonttres">Confirmação</h1>
+					
+					<p:panel rendered="#{confirmarOrientacaoBean.renderedOrientacao and confirmarOrientacaoBean.existeDisciplinaSelecionada}">
+						<h:form id="confirmarOrientacaoForm">
+							<p:dataTable id="tableDisciplinaPesquisa" value="#{confirmarOrientacaoBean.listaDisciplinas}" var="disciplina">
+								<p:column>
+									<f:facet name="header"> Nome</f:facet>
+									<h:outputText value="#{disciplina.nome}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header"> Codigo</f:facet>
+									<h:outputText value="#{disciplina.codigo}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header"> Carga Horária</f:facet>
+									<h:outputText value="#{disciplina.cargaHoraria}" />
+								</p:column>
+							</p:dataTable>
+							
+							<p:outputLabel value="Carga Horária Total: #{confirmarOrientacaoBean.orientacao.cargaHoraria}" />
+							<p:inputTextarea id="comentarioAluno" styleClass="coment-aluno"	value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}" placeholder="Observações" />
+							<h:commandButton action="#{confirmarOrientacaoBean.salvar()}" styleClass="btn btn-black" value="Salvar" />
+						</h:form>
+					</p:panel>
+		
+					<p:outputLabel rendered="#{!confirmarOrientacaoBean.renderedOrientacao}" value="Você já cadastrou sua orientação"/>
+					<p:outputLabel rendered="#{!confirmarOrientacaoBean.existeDisciplinaSelecionada and confirmarOrientacaoBean.renderedOrientacao}" value="Nenhuma disciplina Selecionada"/>
+				</div>
 			</div>
 		</div>
-		</p:panel>
-		
-		<p:outputLabel rendered="#{!confirmarOrientacaoBean.renderedOrientacao}" value="Você já cadastrou sua orientação"/>
-			<p:outputLabel rendered="#{!confirmarOrientacaoBean.existeDisciplinaSelecionada and confirmarOrientacaoBean.renderedOrientacao}" value="Nenhuma disciplina Selecionada"/>
-		
 	</ui:define>
-
 </ui:composition>
 
 </html>

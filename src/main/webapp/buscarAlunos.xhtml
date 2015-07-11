@@ -20,8 +20,7 @@
 
 							<h:panelGrid columns="1" style="margin: 0 auto">
 								<p:inputText placeholder="Nome"
-									value="#{alunoBean.criteria.nome}"
-									styleClass="form-control" />
+									value="#{alunoBean.criteria.nome}" styleClass="form-control" />
 
 
 								<p:inputText placeholder="Matrícula"
@@ -31,7 +30,7 @@
 
 
 							</h:panelGrid>
-							<h:commandButton action="#{alunoBean.pesquisar()}"
+							<p:commandButton action="#{alunoBean.pesquisar()}"
 								update="alunoForm" styleClass="btn btn-default"
 								value="Pesquisar" />
 						</h:panelGrid>
@@ -40,46 +39,44 @@
 				</div>
 				<h:form id="alunoForm">
 
-<div class="form-group">
+					<div class="form-group">
+
+						<p:dataTable id="tableAlunoPesquisa"
+							rendered="#{alunoBean.orientacao ne null}"
+							value="#{alunoBean.listaOrientacoes}" var="orientacao" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+							<p:column>
+								<f:facet name="header"> Nome</f:facet>
+								<h:outputText value="#{orientacao.aluno.nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Matrícula</f:facet>
+								<h:outputText value="#{orientacao.aluno.matricula}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Situação</f:facet>
+								<h:outputText value="#{orientacao.situacaoTipo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header"> Carga Horária</f:facet>
+								<h:outputText value="#{orientacao.cargaHoraria}" />
+							</p:column>
+								<p:column style="width:50px">
+								<p:commandButton icon="ui-icon-plus" action="#{alunoBean.visualizarOrientacao(orientacao)}"
+									style=" width: 30px; height: 30px; " />
+
+
+
+							</p:column>
+
+
+						</p:dataTable>
+					</div>
+
+
 				
-					<p:dataTable id="tableAlunoPesquisa"
-						rendered="#{alunoBean.listaUsuario ne null}"
-						value="#{alunoBean.listaUsuario}"
-						var="aluno" rows="10"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-						<p:column>
-							<f:facet name="header"> Nome</f:facet>
-							<h:outputText value="#{aluno.nome}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header"> Matrícula</f:facet>
-							<h:outputText value="#{aluno.matricula}" />
-						</p:column>
-<!-- 						<p:column> -->
-<!-- 							<f:facet name="header"> Carga Horária</f:facet> -->
-<!-- 							<h:outputText value="#{aluno.orientacoes(1).cargaHoraria}" /> -->
-<!-- 						</p:column> -->
-<!-- 						<p:column> -->
-<!-- 							<f:facet name="header"> Situação</f:facet> -->
-<!-- 							<h:outputText value="#{aluno.orientacao.situacao}" /> -->
-<!-- 						</p:column> -->
-						<p:column style="width:50px">
-							<p:commandButton icon="ui-icon-plus"
-								style=" width: 30px; height: 30px;" />
-								
-							
-
-						</p:column>
-
-						
-					</p:dataTable>
-</div>
-
-
-					<h:commandButton action="#{orientacaoBean.salvar()}"
-						styleClass="btn btn-default" value="Salvar"></h:commandButton>
 				</h:form>
 			</div>
 		</div>
