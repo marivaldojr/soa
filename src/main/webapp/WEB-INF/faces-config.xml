@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
-    
-    <managed-bean>
-    <managed-bean-name>orientacaoBean</managed-bean-name>
-    <managed-bean-class>bean.OrientacaoBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-</managed-bean>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
 
-<managed-bean>
-    <managed-bean-name>confirmarOrientacaoBean</managed-bean-name>
-    <managed-bean-class>bean.ConfirmarOrientacaoBean</managed-bean-class>
-    <managed-bean-scope>view</managed-bean-scope>
-    <managed-property>
-        <property-name>listaDisciplinas</property-name>
-        <value>#{orientacaoBean.listaDisciplinasSelecionadas}</value>
-    </managed-property>
-</managed-bean>
-    
-    <navigation-rule>
-    <from-view-id>/cadastroOrientacao.xhtml</from-view-id>  
-        <navigation-case>
-            <from-outcome>confirmarOrientacao</from-outcome>
-            <to-view-id>/confirmarOrientacao.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-</navigation-rule>
-    
-    <navigation-rule>
-    <from-view-id>/confirmarOrientacao.xhtml</from-view-id>  
-        <navigation-case>
-            <from-outcome>orientacaoConfirmada</from-outcome>
-            <to-view-id>/orientacaoConfirmada.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
+	<managed-bean>
+		<managed-bean-name>orientacaoBean</managed-bean-name>
+		<managed-bean-class>bean.OrientacaoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>confirmarOrientacaoBean</managed-bean-name>
+		<managed-bean-class>bean.ConfirmarOrientacaoBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>listaDisciplinas</property-name>
+			<value>#{orientacaoBean.listaDisciplinasSelecionadas}</value>
+		</managed-property>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>/cadastroOrientacao.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>confirmarOrientacao</from-outcome>
+			<to-view-id>/confirmarOrientacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
-    
+
+	<navigation-rule>
+		<from-view-id>/confirmarOrientacao.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>orientacaoConfirmada</from-outcome>
+			<to-view-id>/orientacaoConfirmada.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 
 </faces-config>

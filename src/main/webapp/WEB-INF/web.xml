@@ -11,6 +11,23 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   
+      
+    <filter>
+        <filter-name>Authorization</filter-name>
+        <filter-class>service.AuthorizationService</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Authorization</filter-name>
+        <url-pattern>/index.xhtml</url-pattern>
+        <url-pattern>/visualizarOrientacao.xhtml</url-pattern>
+  
+    </filter-mapping>
+    
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+    
   <listener>
   	<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
   </listener>
