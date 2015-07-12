@@ -31,9 +31,9 @@ public class AuthorizationService implements Filter{
 		
 		if(usuario==null) {
             session.setAttribute("notification_type", "danger");
-            session.setAttribute("notification_message", "Você precisa estar logado para visualizar esta página!");
+            session.setAttribute("notification_message", "VocÃª precisa estar logado para visualizar esta pÃ¡gina!");
             String contextPath = ((HttpServletRequest)request).getContextPath();
-            ((HttpServletResponse)response).sendRedirect(contextPath+"/login.jsp");
+            ((HttpServletResponse)response).sendRedirect(contextPath+"/login.xhtml");
 		}else{
 			chain.doFilter(request, response);
 		}
