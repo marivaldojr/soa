@@ -38,7 +38,11 @@
 							<li><a href="cadastroOrientacao.xhtml">Cadastrar</a></li>
 						</ul>
 					</li>
-					<li><a href="#contact">Contato</a></li>
+					<li><h:form><p:commandButton 
+							 action="#{loginBean.logout()}"
+								value="Sair" />
+								</h:form>
+								</li>
 <!-- 					<li class="dropdown"> -->
 <!-- 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
 <!-- 						<ul class="dropdown-menu" role="menu"> -->

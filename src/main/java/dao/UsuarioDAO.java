@@ -18,7 +18,9 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	}
 
 	public Usuario autenticar(Usuario usuario) {
-		em.getTransaction().begin();
+		em = emf.createEntityManager();
+		EntityTransaction trs = em.getTransaction();
+		trs.begin();
 		Query consulta = em
 				.createQuery("select usuario from Usuario usuario where usuario.senha ='"
 						+ usuario.getSenha()
