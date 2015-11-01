@@ -8,6 +8,7 @@ import model.Orientacao;
 import model.Usuario;
 import service.OrientacaoService;
 import dao.UsuarioDAO;
+import enums.SituacaoEnum;
 
 @ManagedBean(name = "visualizarOrientacaoBean")
 @ViewScoped
@@ -28,6 +29,7 @@ public class VisualizarOrientacaoBean extends BaseBean {
 		System.out.println("Inicializei");
 		usuarioDAO = new UsuarioDAO();
 		orientacaoService = new OrientacaoService();
+		usuario = usuarioDAO.buscarPorId(2);
 	
 		if (orientacao == null ||orientacao.getAluno() == null) {
 			orientacao = orientacaoService.buscarOrientacaoPorAluno(usuarioDAO
@@ -35,6 +37,18 @@ public class VisualizarOrientacaoBean extends BaseBean {
 
 		}
 	
+	}
+	
+	public String aceitar(){
+		orientacao.setSituacao(SituacaoEnum.ACEITA.getCodigo());
+		orientacaoService.salvar(orientacao);
+		return "buscarAlunos";
+	}
+	
+	public String rejeitar(){
+		orientacao.setSituacao(SituacaoEnum.RECUSADA.getCodigo());
+		orientacaoService.salvar(orientacao);
+		return "buscarAlunos";
 	}
 
 	public boolean isRenderedOrientacao() {

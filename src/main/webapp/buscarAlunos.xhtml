@@ -42,7 +42,7 @@
 					<div class="form-group">
 
 						<p:dataTable id="tableAlunoPesquisa"
-							rendered="#{alunoBean.orientacao ne null}"
+							rendered="#{alunoBean.listaOrientacoes ne null}"
 							value="#{alunoBean.listaOrientacoes}" var="orientacao" rows="10"
 							paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
@@ -64,17 +64,15 @@
 								<h:outputText value="#{orientacao.cargaHoraria}" />
 							</p:column>
 								<p:column style="width:50px">
-								<p:commandButton icon="ui-icon-plus" action="#{alunoBean.visualizarOrientacao(orientacao)}"
+								<p:commandButton disabled="#{orientacao.situacao eq 2 or orientacao.situacao eq 4}" icon="ui-icon-plus" action="#{alunoBean.visualizarOrientacao(orientacao)}"
 									style=" width: 30px; height: 30px; " />
-
-
-
 							</p:column>
 
 
 						</p:dataTable>
 					</div>
-
+						
+				
 
 				
 				</h:form>

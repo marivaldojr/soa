@@ -4,13 +4,14 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
 
+<!-- ************** Orientacao bean ********************** -->
+
 	<managed-bean>
 		<managed-bean-name>orientacaoBean</managed-bean-name>
 		<managed-bean-class>bean.OrientacaoBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-
-
+	
 	<managed-bean>
 		<managed-bean-name>confirmarOrientacaoBean</managed-bean-name>
 		<managed-bean-class>bean.ConfirmarOrientacaoBean</managed-bean-class>
@@ -20,6 +21,27 @@
 			<value>#{orientacaoBean.listaDisciplinasSelecionadas}</value>
 		</managed-property>
 	</managed-bean>
+
+<!-- ************** Aluno bean ********************** -->
+	<managed-bean>
+		<managed-bean-name>alunoBean</managed-bean-name>
+		<managed-bean-class>bean.AlunoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>visualizarOrientacaoBean</managed-bean-name>
+		<managed-bean-class>bean.VisualizarOrientacaoBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>orientacao</property-name>
+			<value>#{alunoBean.orientacao}</value>
+		</managed-property>
+	</managed-bean>
+
+
+<!-- ************** regras de navegação ********************** -->
 
 	<navigation-rule>
 		<from-view-id>/cadastroOrientacao.xhtml</from-view-id>
@@ -39,5 +61,14 @@
 		</navigation-case>
 	</navigation-rule>
 
+
+<navigation-rule>
+		<from-view-id>/buscarAlunos.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>visualizarOrientacao</from-outcome>
+			<to-view-id>/visualizarOrientacao.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

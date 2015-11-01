@@ -10,6 +10,8 @@
 	<ui:define name="main-content">
 		<h1>Sistema de Orientação Acadêmica</h1>
 <p:panel rendered="#{visualizarOrientacaoBean.renderedOrientacao}">
+					<h:form id="orientacaoForm">
+
 		<div class="row">
 			<div class="col-sm-12">
 
@@ -44,15 +46,23 @@
 							value="#{visualizarOrientacaoBean.orientacao.comentarioAluno}"
 							placeholder="Observações" />
 
-						<!-- 							<p:inputTextarea id="comentarioOrientador" styleClass="form-control" -->
-						<!-- 							value="#{confirmarOrientacaoBean.orientacao.comentarioAluno}" -->
-						<!-- 							placeholder="Observações" /> -->
-
 					</div>
+						
 					
 				
 			</div>
 		</div>
+											
+											<h:commandButton id="aceitar" action="#{visualizarOrientacaoBean.aceitar()}" 
+							rendered="#{visualizarOrientacaoBean.orientador}"
+							update="panelOrientacao" styleClass="btn btn-lg btn-primary"
+							value="Aceitar"/>
+						
+						<h:commandButton id="rejeitar" action="#{visualizarOrientacaoBean.rejeitar()}" 
+							rendered="#{visualizarOrientacaoBean.orientador and visualizarOrientacaoBean.orientacao.situacao eq 1}"
+							update="panelOrientacao" styleClass="btn btn-lg btn-primary"
+							value="Rejeitar"/>
+							</h:form>
 		</p:panel>
 		
 		<p:outputLabel rendered="#{!visualizarOrientacaoBean.renderedOrientacao}" value="Você não cadastrou sua orientação"/>

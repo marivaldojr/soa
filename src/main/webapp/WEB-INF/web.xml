@@ -20,8 +20,6 @@
     <filter-mapping>
         <filter-name>Authorization</filter-name>
         <url-pattern>/index.xhtml</url-pattern>
-        <url-pattern>/visualizarOrientacao.xhtml</url-pattern>
-  
     </filter-mapping>
     
     <session-config>

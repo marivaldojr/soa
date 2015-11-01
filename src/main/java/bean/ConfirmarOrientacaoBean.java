@@ -16,6 +16,7 @@ import dao.AnoSemestreDAO;
 import dao.DisciplinaDAO;
 import dao.OrientacaoDAO;
 import dao.UsuarioDAO;
+import enums.SituacaoEnum;
 
 @ManagedBean(name = "confirmarOrientacaoBean")
 @ViewScoped
@@ -46,7 +47,9 @@ public class ConfirmarOrientacaoBean extends BaseBean {
 		System.out.println("Inicializei");
 
 		orientacao = new Orientacao();
+		
 		orientacaoService = new OrientacaoService();
+		orientacao = orientacaoService.buscarOrientacaoPorAluno(usuarioDAO.buscarPorId(2));
 		disciplinaService = new DisciplinaService();
 		criteria = new OrientacaoCriteria();
 		usuarioDAO = new UsuarioDAO();
@@ -72,7 +75,7 @@ public class ConfirmarOrientacaoBean extends BaseBean {
 			return null;
 		} else {
 			System.out.println("Salvando");
-			orientacao.setSituacao(1);
+			orientacao.setSituacao(SituacaoEnum.SOLICITADA.getCodigo());
 			orientacao.setAluno(usuarioDAO.buscarPorId(2));
 			orientacao.setOrientador(orientacao.getAluno().getOrientador());
 			orientacao.setAnoSemestre(anoSemestreDao.buscarAnoSemestre());
