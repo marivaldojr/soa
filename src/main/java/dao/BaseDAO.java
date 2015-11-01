@@ -24,7 +24,7 @@ public abstract class BaseDAO<Modelo> {
 		em = emf.createEntityManager();
 		EntityTransaction trs = em.getTransaction();
 		trs.begin();
-		em.persist(entidade);
+		em.merge(entidade);
 		trs.commit();
 		em.close();
 	}
